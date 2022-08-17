@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="news_style.css">
+    <link href="{{ url_for('static', filename='vendor/aos/aos.css"') }} rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+  
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  
+    <style>
+      .red {
+        color: red;
+      }
+      .green {
+        color: #16FB16;
+      }
+      .yellow {
+        color: yellow;
+      }
+    </style>
+    <title>Stockbeez | Analytic Tools</title>
+  </head>
+{% extends "layout.html" %}
+
+{% block body %}
+    <center>
+      <div class="col-lg-8">
+        <form style="margin-top: 142px; margin-bottom: 42px" action="{{ url_for('get_tools') }}" method="post">
+          <input class="form-control me-2 input my-3" type="search" placeholder="Enter ticker of company" style="margin-left: 10px;border-color: blue;" autofocus = True name="company_ticker">
+            <input class="form-control me-2 input" type="search" placeholder="Enter corresponding company name" style="margin-left: 10px;border-color: blue;" autofocus = True name="company_name">
+            <input class="form-control me-2 input" type="search" placeholder="Enter the stock exchange the company belongs to" style="margin-left: 10px;border-color: blue;" autofocus = True name="stock_exc">
+          <button class="btn btn-outline-primary" type="submit" style="margin-top: 10px;padding-left: 42px; padding-right: 42px;">Search</button>
+        </form>
+      </div>
+    </center>
+
+    <!-- TradingView Widget BEGIN -->
+    {% if ticker %}
+    <div class="container">
+        <div class="tradingview-widget-container" style="margin-left: 150px">
+        <div id="tradingview_9a417"></div>
+        <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/symbols/TSLA/" rel="noopener"
+            target="_blank"><span class="blue-text">{{ ticker }} Stock Price Today</span></a> by TradingView</div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+          new TradingView.MediumWidget(
+            {
+              "symbols": [
+                  [
+                    "{{ name_co }}",
+                    "{{ ticker }}"
+                  ]],
+              "chartOnly": false,
+              "width": 1000,
+              "height": 400,
+              "locale": "in",
+              "colorTheme": "light",
+              "gridLineColor": "rgba(240, 243, 250, 0)",
+              "fontColor": "#787B86",
+              "isTransparent": false,
+              "autosize": false,
+              "showVolume": false,
+              "scalePosition": "no",
+              "scaleMode": "Normal",
+              "fontFamily": "Trebuchet MS, sans-serif",
+              "noTimeScale": false,
+              "valuesTracking": "1",
+              "chartType": "line",
+              "container_id": "tradingview_9a417"
+            }
+          );
+        </script>
+      </div>
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+          <div id="tradingview_fac2d"></div>
+          <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/symbols/NASDAQ-TSLA/" rel="noopener" target="_blank"><span class="blue-text">{{ ticker }} Chart</span></a> by TradingView</div>
+          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+          <script type="text/javascript">
+          new TradingView.widget(
+          {
+          "width": 980,
+          "height": 610,
+          "symbol": "NASDAQ:{{ ticker }}",
+          "interval": "D",
+          "timezone": "Etc/UTC",
+          "theme": "light",
+          "style": "1",
+          "locale": "in",
+          "toolbar_bg": "#f1f3f6",
+          "enable_publishing": false,
+          "allow_symbol_change": true,
+          "container_id": "tradingview_fac2d"
+        }
+          );
+          </script>
+        </div>
+  <!-- TradingView Widget END -->
+  
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <center>
+            <div class="tradingview-widget-container">
+              <div class="tradingview-widget-container__widget"></div>
+              <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/symbols/NASDAQ-AAPL/financials-overview/" rel="noopener" target="_blank"><span class="blue-text">{{ ticker }} Fundamental Data</span></a> by TradingView</div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-financials.js" async>
+              {
+              "symbol": "NASDAQ:{{ ticker }}",
+              "colorTheme": "light",
+              "isTransparent": false,
+              "largeChartUrl": "",
+              "displayMode": "regular",
+              "width": 480,
+              "height": 830,
+              "locale": "in"
+              }
+              </script>
+              </div>
+          </center>
+        </div>
+        <div class="col">
+          <center>
+            <div class="container" style="justify-content:center;">
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container">
+              <div class="tradingview-widget-container__widget"></div>
+              <div class="tradingview-widget-copyright"><a href="https://in.tradingview.com/symbols/NASDAQ-AAPL/technicals/"
+                  rel="noopener" target="_blank"><span class="blue-text">Technical Analysis for {{ ticker }}</span></a> by
+                TradingView</div>
+              <script type="text/javascript"
+                src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+                  {
+                    "interval": "1m",
+                      "width": 425,
+                        "isTransparent": false,
+                          "height": 450,
+                            "symbol": "NASDAQ:{{ ticker }}",
+                              "showIntervalTabs": true,
+                                "locale": "in",
+                                  "colorTheme": "light"
+                  }
+                </script>
+            </div>
+            <!-- TradingView Widget END -->
+          </div>
+          </center>
+        </div>
+      </div>
+    </div>
+    </div>    
+    {% endif %}
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    
+  <!-- Vendor JS Files -->
+<!--  <script src="{{ url_for('static', filename='vendor/purecounter/purecounter.js') }}"></script>-->
+  <script src="{{ url_for('static', filename='vendor/aos/aos.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/glightbox/js/glightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
+<!--  <script src="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.js') }}"></script>-->
+  <script src="{{ url_for('static', filename='vendor/php-email-form/validate.js') }}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </body>
+</html>
+{% endblock %}
+
+

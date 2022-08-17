@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="news_style.css">
+    <link href="{{ url_for('static', filename='vendor/aos/aos.css"') }} rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/remixicon/remixicon.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+  
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+  
+    <style>
+      .red {
+        color: red;
+      }
+      .green {
+        color: #16FB16;
+      }
+      .yellow {
+        color: yellow;
+      }
+    </style>
+    <title>Latest News Headlines</title>
+  </head>
+  <body>
+    <header id="header" class="header fixed-top">
+      <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+        <a href="#" class="logo d-flex align-items-center">
+          <img src="{{ url_for('static', filename='img/bee2.jpg') }}" alt="">
+          <span>Stockbeez</span>
+        </a>
+        <nav id="navbar" class="navbar">
+          <ul>
+            <li><a class="nav-link scrollto active" href="http://127.0.0.1:5000/">Home</a></li>
+            <li><a class="nav-link scrollto" href="http://127.0.0.1:5000/news">Analytic Tools</a></li>
+            <li><a class="nav-link scrollto" href="http://127.0.0.1:5000/headlines">Headlines</a></li>
+            <li><a class="nav-link scrollto" href="http://127.0.0.1:5000/glance">Stocks At A Glance</a></li>
+            <!-- <li><a class="nav-link scrollto" href="#vision">Vision</a></li> -->
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+      </div>
+    </header>
+{% block body %} {% endblock %}
